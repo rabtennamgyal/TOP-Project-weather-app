@@ -6,6 +6,7 @@ const btn = document.querySelector('.btn');
 let map;
 let lat = localStorage.getItem('lat') ? localStorage.getItem('lat') : 40.737;
 let lng = localStorage.getItem('lng') ? localStorage.getItem('lng') : -73.923;
+const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
 map = L.map('map').setView([lat, lng], 12);
 
@@ -18,11 +19,10 @@ L.marker([lat, lng]).addTo(map)
 
 
 
-function setAllDatas(temp, wind, main, description, city, country) {
+function setAllDatas(temp, wind, main, city, country) {
     localStorage.setItem('temp', temp);
     localStorage.setItem('wind', wind);
     localStorage.setItem('main', main);
-    localStorage.setItem('desc', description);
     localStorage.setItem('city', city);
     localStorage.setItem('country', country)
 }
@@ -46,53 +46,83 @@ async function getData(location) {
     const temperature = Math.trunc((data.main.temp - 32) / 1.8);
     const wind = data.wind.speed;
     const main = data.weather[0].main;
-    const description = data.weather[0].description;
     const city = data.name;
     const country = data.sys.country;
 
-    setAllDatas(temperature, wind, main, description, city, country);
+    setAllDatas(temperature, wind, main, city, country);
 };
 
 function injectData() {
     let temp = localStorage.getItem('temp');
     let wind = localStorage.getItem('wind');
     let main = localStorage.getItem('main');
-    let description = localStorage.getItem('desc');
     let city = localStorage.getItem('city');
     let country = localStorage.getItem('country');
+    let today = new Date();
+    let day = weekday[today.getDay()];
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+    
+    today = mm + '.' + dd + '.' + yyyy;
+
 
     const parent = document.getElementById('card');
+    parent.innerHTML = `
+    <div class='cardOne'>
+        <p id='day'>${day}</p>
+        <p id='date'>${today}</p>
+        <p id='location'>${city}, ${country} 📍</p>
+    </div>
 
-    const h1 = document.createElement('h1');
-    h1.classList.add('cardStyle');
-    h1.textContent = temp;
+    <div class='cardTwo'>
+        <div class='cardTwoContent'>
+            <div id='one' class='cardTwoContentOne'>
+                <h1 id='icon'>☀</h1>
+            </div>
 
-    const h2 = document.createElement('h1');
-    h2.classList.add('cardStyle');
-    h2.textContent = wind;
+            <div id='two' class='cardTwoContentTwo'>
+                <h1 id='temp'>${temp} °C</h1>
+            </div>
 
-    const h3 = document.createElement('h1');
-    h3.classList.add('cardStyle');
-    h3.textContent = main;
+            <div id='three' class='cardTwoContentThree'>
+                <h1 id='main'>${main}</h1>
+            </div>
+        </div>
+    </div>
 
-    const h4 = document.createElement('h1');
-    h4.classList.add('cardStyle');
-    h4.textContent = description;
+    <div class='cardThree'>
+        <h1>
+            hi
+        </h1>
+    </div>
+    `
 
-    const h5 = document.createElement('h1');
-    h5.classList.add('cardStyle');
-    h5.textContent = city;
+    // const h1 = document.createElement('h1');
+    // h1.classList.add('cardStyle');
+    // h1.textContent = `${temp} `;
 
-    const h6 = document.createElement('h1');
-    h6.classList.add('cardStyle');
-    h6.textContent = country;
+    // const h2 = document.createElement('h1');
+    // h2.classList.add('cardStyle');
+    // h2.textContent = `${wind} km/h`;
 
-    parent.appendChild(h1)
-    parent.appendChild(h2)
-    parent.appendChild(h3)
-    parent.appendChild(h4)
-    parent.appendChild(h5)
-    parent.appendChild(h6)
+    // const h3 = document.createElement('h1');
+    // h3.classList.add('cardStyle');
+    // h3.textContent = main;
+
+    // const h4 = document.createElement('h1');
+    // h4.classList.add('cardStyle');
+    // h4.textContent = description;
+
+    // const h5 = document.createElement('h1');
+    // h5.classList.add('cardStyle');
+    // h5.textContent = `${city}, ${country}`
+
+    // parent.appendChild(h1)
+    // parent.appendChild(h2)
+    // parent.appendChild(h3)
+    // parent.appendChild(h4)
+    // parent.appendChild(h5)
 }
 
 function clearData() {
@@ -106,7 +136,8 @@ function clearData() {
 btn.addEventListener('click', () => {
     getData(input.value);
     clearData();
-    injectData();
+    setTimeout(() => {
+        injectData();
+    }, 3000)
     input.value = '';
 });
-
