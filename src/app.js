@@ -1,6 +1,6 @@
 import './sass/main.scss';
-import { setAllDatas } from './modules/Storage';'./modules/Storage';
-import { createCard, clearData, changeUnitF, changeUnitC, styleCF } from './modules/Paintdom';
+import { setAllDatas, saveBothTemp } from './modules/Storage';'./modules/Storage';
+import { createCard, clearData, changeToCelsius, changeToFahrenheit, styleCF } from './modules/Paintdom';
 
 const input = document.getElementById('input');
 const btn = document.querySelector('.btn');
@@ -46,7 +46,7 @@ const day = localStorage.getItem('day') ? localStorage.getItem('day') : 'Friday'
 createCard(temp, unit, main, city, country, date, day);
 
 
-async function getData(location, theunit) {
+async function getData(location) {
     const weatherData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=Imperial&appid=804f73fec112865b52ba78935b0ca57b`, {mode: 'cors'});
     const data = await weatherData.json();
     const curlat = data.coord.lat;
@@ -60,9 +60,13 @@ async function getData(location, theunit) {
         L.marker([lat, lng]).addTo(map)
         .openPopup();
     }, 5000)
-    
-    let temperature = Math.ceil((data.main.temp - 32) / 1.8);
-    let unit = theunit; // Initially it will be celsius;
+
+    let celsius = Math.ceil((data.main.temp - 32) / 1.8); // change fahrenheit to celsius
+    let fahrenheit = Math.ceil(data.main.temp); // is already fahrenheit
+    saveBothTemp(celsius, fahrenheit);
+
+    let temperature = cel.style.color === 'white' ? celsius : fahrenheit;
+    let unit = cel.style.color === 'white' ? '°C' : '°F';
     const main = data.weather[0].main;
     const city = data.name;
     const country = data.sys.country;
@@ -74,7 +78,6 @@ async function getData(location, theunit) {
     let yyyy = date.getFullYear();
     
     date = mm + '.' + dd + '.' + yyyy;
-    console.log(data);
     setAllDatas(temperature, unit, main, city, country, icon, date, day);
 };
 
@@ -122,7 +125,7 @@ function injectData() {
 styleCF(cel, fah)
 
 btn.addEventListener('click', () => {
-    getData(input.value, unit);
+    getData(input.value);
     clearData();
     setTimeout(() => {
         injectData();
@@ -131,11 +134,11 @@ btn.addEventListener('click', () => {
 });
 
 cel.addEventListener('click', () => {
-    changeUnitC();
+    changeToCelsius();
 })
 
 fah.addEventListener('click', () => {
-    changeUnitF();
+    changeToFahrenheit();
 })
 
 

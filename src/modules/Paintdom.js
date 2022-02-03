@@ -43,38 +43,51 @@ function clearData() {
     }
 }
 
-function changeUnitC() {
+function changeToCelsius() {
     fah.style.color = 'grey';
     cel.style.color = 'white'
     setStyle('white', 'grey');
 
-    // const currentTemp = Number(Math.trunc(localStorage.getItem('tempA') - 32) / 1.8);
-    // let currentUnit = '°C';
-    // localStorage.setItem('temp', currentTemp);
-    // localStorage.setItem('unit', currentUnit);
-    // const parent = document.getElementById('card');
+    const currentTemp = Number(Math.ceil((localStorage.getItem('fah') - 32 ) / 1.8));
+    const currentUnit = '°C';
+    const main = localStorage.getItem('main');
+    const city = localStorage.getItem('city');
+    const country = localStorage.getItem('country');
+    const date = localStorage.getItem('date');
+    const day = localStorage.getItem('day');
+
+    localStorage.setItem('temp', currentTemp);
+    localStorage.setItem('unit', currentUnit);
+    const parent = document.getElementById('card');
     
-    // while (parent.firstChild) {
-    //     parent.removeChild(parent.firstChild);
-    // }
-    // createCard(currentTemp, currentUnit, main, city, country, date, day);
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+    createCard(currentTemp, currentUnit, main, city, country, date, day);
 }
 
-function changeUnitF() {
+function changeToFahrenheit() {
     cel.style.color = 'grey';
     fah.style.color = 'white'
     setStyle('grey', 'white');
+    
+    const currentTemp = Number(Math.ceil(localStorage.getItem('cel') * 1.8) + 32);
+    const currentUnit = '°F';
+    const main = localStorage.getItem('main');
+    const city = localStorage.getItem('city');
+    const country = localStorage.getItem('country');
+    const date = localStorage.getItem('date');
+    const day = localStorage.getItem('day');
 
-    // const currentTemp = Number(Math.trunc((localStorage.getItem('tempB') * 1.8) + 32));
-    // let currentUnit = '°F';
-    // localStorage.setItem('temp', currentTemp);
-    // localStorage.setItem('unit', currentUnit);
-    // const parent = document.getElementById('card');
+    localStorage.setItem('unit', '°F');
+    localStorage.setItem('temp', currentTemp);
+    localStorage.setItem('unit', currentUnit);
+    const parent = document.getElementById('card');
 
-    // while (parent.firstChild) {
-    //     parent.removeChild(parent.firstChild);
-    // }
-    // createCard(currentTemp, currentUnit, main, city, country, date, day);
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+    createCard(currentTemp, currentUnit, main, city, country, date, day);
 }
 
 function styleCF(cel, fah) {
@@ -84,4 +97,4 @@ function styleCF(cel, fah) {
     fah.style.color = fColor;
 }
 
-export { createCard, clearData, changeUnitC, changeUnitF, styleCF };
+export { createCard, clearData, changeToCelsius, changeToFahrenheit, styleCF };

@@ -14,5 +14,10 @@ function setStyle(cel, fah) {
     localStorage.setItem('fstyle', fah)
 }
 
+function saveBothTemp(cel, fah) {
+    localStorage.setItem('cel', cel);
+    localStorage.setItem('fah', fah);
+}
 
-export { setAllDatas, setStyle }
+
+export { setAllDatas, setStyle, saveBothTemp }
