@@ -1,7 +1,6 @@
 import './sass/main.scss';
 import { setAllDatas } from './modules/Storage';'./modules/Storage';
-import { createCard, clearData, changeUnitF, changeUnitC } from './modules/Paintdom';
-
+import { createCard, clearData, changeUnitF, changeUnitC, styleCF } from './modules/Paintdom';
 
 const input = document.getElementById('input');
 const btn = document.querySelector('.btn');
@@ -35,13 +34,13 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 L.marker([lat, lng]).addTo(map)
     .openPopup();
 
-const temp = localStorage.getItem('temp') ? localStorage.getItem('temp') : '';
-const unit = localStorage.getItem('unit') ? localStorage.getItem('unit') : '';
-const main = localStorage.getItem('main') ? localStorage.getItem('main') : '';
-const city = localStorage.getItem('city') ? localStorage.getItem('city') : '';
-const country = localStorage.getItem('country') ? localStorage.getItem('country') : '';
-const date = localStorage.getItem('date') ? localStorage.getItem('date') : '';
-const day = localStorage.getItem('day') ? localStorage.getItem('day') : '';
+const temp = localStorage.getItem('temp') ? localStorage.getItem('temp') : '10';
+const unit = localStorage.getItem('unit') ? localStorage.getItem('unit') : '°C';
+const main = localStorage.getItem('main') ? localStorage.getItem('main') : 'Sunny';
+const city = localStorage.getItem('city') ? localStorage.getItem('city') : 'New York';
+const country = localStorage.getItem('country') ? localStorage.getItem('country') : 'US';
+const date = localStorage.getItem('date') ? localStorage.getItem('date') : '2.19.2022';
+const day = localStorage.getItem('day') ? localStorage.getItem('day') : 'Friday';
 
 
 createCard(temp, unit, main, city, country, date, day);
@@ -62,9 +61,8 @@ async function getData(location, theunit) {
         .openPopup();
     }, 5000)
     
-    const temperature = Math.trunc((data.main.temp - 32) / 1.8);
-    let unit = theunit;
-    console.log(unit)
+    let temperature = Math.ceil((data.main.temp - 32) / 1.8);
+    let unit = theunit; // Initially it will be celsius;
     const main = data.weather[0].main;
     const city = data.name;
     const country = data.sys.country;
@@ -76,7 +74,7 @@ async function getData(location, theunit) {
     let yyyy = date.getFullYear();
     
     date = mm + '.' + dd + '.' + yyyy;
-
+    console.log(data);
     setAllDatas(temperature, unit, main, city, country, icon, date, day);
 };
 
@@ -86,6 +84,8 @@ function injectData() {
     let main = localStorage.getItem('main');
     let city = localStorage.getItem('city');
     let country = localStorage.getItem('country');
+    let day = localStorage.getItem('day');
+    let date = localStorage.getItem('date');
 
     const parent = document.getElementById('card');
     parent.innerHTML = `
@@ -119,6 +119,7 @@ function injectData() {
     `
 }
 
+styleCF(cel, fah)
 
 btn.addEventListener('click', () => {
     getData(input.value, unit);
@@ -138,6 +139,4 @@ fah.addEventListener('click', () => {
 })
 
 
-export { weatherIcons, cel, fah, temp, unit, main, city, country, date, day };
-
-
+export { weatherIcons, cel, fah, main, city, country, date, day };

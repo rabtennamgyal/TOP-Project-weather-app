@@ -9,4 +9,10 @@ function setAllDatas(temp, unit, main, city, country, icon, date, day) {
     localStorage.setItem('day', day);
 }
 
-export { setAllDatas }
+function setStyle(cel, fah) {
+    localStorage.setItem('cstyle', cel);
+    localStorage.setItem('fstyle', fah)
+}
+
+
+export { setAllDatas, setStyle }

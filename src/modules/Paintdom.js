@@ -1,4 +1,6 @@
-import { weatherIcons, cel, fah, temp, unit, main, city, country, date, day  } from '../app';
+import { weatherIcons, cel, fah, main, city, country, date, day } from '../app';
+import { setStyle } from './Storage';
+
 
 function createCard(temp, unit, main, city, country, date, day) {
     const parent = document.getElementById('card');
@@ -44,31 +46,42 @@ function clearData() {
 function changeUnitC() {
     fah.style.color = 'grey';
     cel.style.color = 'white'
-    let currentTemp = Math.trunc((localStorage.getItem('temp') - 32) / 1.8);
-    let currentUnit = '°C';
-    localStorage.setItem('temp', currentTemp);
-    localStorage.setItem('unit', currentUnit);
-    const parent = document.getElementById('card');
+    setStyle('white', 'grey');
 
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-    }
-    createCard(currentTemp, currentUnit, main, city, country, date, day);
+    // const currentTemp = Number(Math.trunc(localStorage.getItem('tempA') - 32) / 1.8);
+    // let currentUnit = '°C';
+    // localStorage.setItem('temp', currentTemp);
+    // localStorage.setItem('unit', currentUnit);
+    // const parent = document.getElementById('card');
+    
+    // while (parent.firstChild) {
+    //     parent.removeChild(parent.firstChild);
+    // }
+    // createCard(currentTemp, currentUnit, main, city, country, date, day);
 }
 
 function changeUnitF() {
     cel.style.color = 'grey';
     fah.style.color = 'white'
-    let currentTemp = Math.trunc((localStorage.getItem('temp') * 1.8) + 32);
-    let currentUnit = '°F';
-    localStorage.setItem('temp', currentTemp);
-    localStorage.setItem('unit', currentUnit);
-    const parent = document.getElementById('card');
+    setStyle('grey', 'white');
 
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-    }
-    createCard(currentTemp, currentUnit, main, city, country, date, day);
+    // const currentTemp = Number(Math.trunc((localStorage.getItem('tempB') * 1.8) + 32));
+    // let currentUnit = '°F';
+    // localStorage.setItem('temp', currentTemp);
+    // localStorage.setItem('unit', currentUnit);
+    // const parent = document.getElementById('card');
+
+    // while (parent.firstChild) {
+    //     parent.removeChild(parent.firstChild);
+    // }
+    // createCard(currentTemp, currentUnit, main, city, country, date, day);
 }
 
-export { createCard, clearData, changeUnitC, changeUnitF }
+function styleCF(cel, fah) {
+    let cColor = localStorage.getItem('cstyle');
+    let fColor = localStorage.getItem('fstyle');
+    cel.style.color = cColor;
+    fah.style.color = fColor;
+}
+
+export { createCard, clearData, changeUnitC, changeUnitF, styleCF };
