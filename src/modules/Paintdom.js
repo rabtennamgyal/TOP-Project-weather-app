@@ -1,8 +1,8 @@
-import { weatherIcons, cel, fah, main, city, country, date, day } from '../app';
+import { weatherIcons, cel, fah, main, city, country, date, day, desc } from '../app';
 import { setStyle } from './Storage';
 
 
-function createCard(temp, unit, main, city, country, date, day) {
+function createCard(temp, unit, main, city, country, date, day, desc) {
     const parent = document.getElementById('card');
     parent.innerHTML = `
     <div class='cardOne'>
@@ -28,9 +28,7 @@ function createCard(temp, unit, main, city, country, date, day) {
     </div>
 
     <div class='cardThree'>
-        <h1>
-            hi
-        </h1>
+        <p id='desc'>${desc}</p>
     </div>
     `
 }
@@ -55,6 +53,7 @@ function changeToCelsius() {
     const country = localStorage.getItem('country');
     const date = localStorage.getItem('date');
     const day = localStorage.getItem('day');
+    const desc = localStorage.getItem('desc');
 
     localStorage.setItem('temp', currentTemp);
     localStorage.setItem('unit', currentUnit);
@@ -63,7 +62,7 @@ function changeToCelsius() {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
-    createCard(currentTemp, currentUnit, main, city, country, date, day);
+    createCard(currentTemp, currentUnit, main, city, country, date, day, desc);
 }
 
 function changeToFahrenheit() {
@@ -78,6 +77,7 @@ function changeToFahrenheit() {
     const country = localStorage.getItem('country');
     const date = localStorage.getItem('date');
     const day = localStorage.getItem('day');
+    const desc = localStorage.getItem('desc');
 
     localStorage.setItem('unit', '°F');
     localStorage.setItem('temp', currentTemp);
@@ -87,7 +87,7 @@ function changeToFahrenheit() {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
-    createCard(currentTemp, currentUnit, main, city, country, date, day);
+    createCard(currentTemp, currentUnit, main, city, country, date, day, desc);
 }
 
 function styleCF(cel, fah) {
@@ -97,4 +97,11 @@ function styleCF(cel, fah) {
     fah.style.color = fColor;
 }
 
-export { createCard, clearData, changeToCelsius, changeToFahrenheit, styleCF };
+function injectLoader() {
+    const parent = document.getElementById('card');
+    const loader = document.createElement('div');
+    loader.classList.add('loader');
+    parent.appendChild(loader);
+}
+
+export { createCard, clearData, changeToCelsius, changeToFahrenheit, styleCF, injectLoader };

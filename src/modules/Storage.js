@@ -1,4 +1,4 @@
-function setAllDatas(temp, unit, main, city, country, icon, date, day) {
+function setAllDatas(temp, unit, main, city, country, icon, date, day, desc) {
     localStorage.setItem('temp', temp);
     localStorage.setItem('unit', unit);
     localStorage.setItem('main', main);
@@ -7,6 +7,7 @@ function setAllDatas(temp, unit, main, city, country, icon, date, day) {
     localStorage.setItem('icon', icon);
     localStorage.setItem('date', date);
     localStorage.setItem('day', day);
+    localStorage.setItem('desc', desc);
 }
 
 function setStyle(cel, fah) {

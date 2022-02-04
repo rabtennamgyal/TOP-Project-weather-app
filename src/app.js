@@ -1,6 +1,6 @@
 import './sass/main.scss';
 import { setAllDatas, saveBothTemp } from './modules/Storage';'./modules/Storage';
-import { createCard, clearData, changeToCelsius, changeToFahrenheit, styleCF } from './modules/Paintdom';
+import { createCard, clearData, changeToCelsius, changeToFahrenheit, styleCF, injectLoader } from './modules/Paintdom';
 
 const input = document.getElementById('input');
 const btn = document.querySelector('.btn');
@@ -41,9 +41,10 @@ const city = localStorage.getItem('city') ? localStorage.getItem('city') : 'New 
 const country = localStorage.getItem('country') ? localStorage.getItem('country') : 'US';
 const date = localStorage.getItem('date') ? localStorage.getItem('date') : '2.19.2022';
 const day = localStorage.getItem('day') ? localStorage.getItem('day') : 'Friday';
+const desc = localStorage.getItem('desc') ? localStorage.getItem('desc') : 'bright and beautiful day';
 
 
-createCard(temp, unit, main, city, country, date, day);
+createCard(temp, unit, main, city, country, date, day, desc);
 
 
 async function getData(location) {
@@ -68,6 +69,7 @@ async function getData(location) {
     let temperature = cel.style.color === 'white' ? celsius : fahrenheit;
     let unit = cel.style.color === 'white' ? '°C' : '°F';
     const main = data.weather[0].main;
+    const desc = data.weather[0].description;
     const city = data.name;
     const country = data.sys.country;
     const icon = weatherIcons[main];
@@ -78,7 +80,8 @@ async function getData(location) {
     let yyyy = date.getFullYear();
     
     date = mm + '.' + dd + '.' + yyyy;
-    setAllDatas(temperature, unit, main, city, country, icon, date, day);
+    setAllDatas(temperature, unit, main, city, country, icon, date, day, desc);
+    injectLoader();
 };
 
 function injectData() {
@@ -89,6 +92,7 @@ function injectData() {
     let country = localStorage.getItem('country');
     let day = localStorage.getItem('day');
     let date = localStorage.getItem('date');
+    let desc = localStorage.getItem('desc');
 
     const parent = document.getElementById('card');
     parent.innerHTML = `
@@ -115,9 +119,7 @@ function injectData() {
     </div>
 
     <div class='cardThree'>
-        <h1>
-            hi
-        </h1>
+        <p id='desc'>${desc}</p>
     </div>
     `
 }
@@ -142,4 +144,4 @@ fah.addEventListener('click', () => {
 })
 
 
-export { weatherIcons, cel, fah, main, city, country, date, day };
+export { weatherIcons, cel, fah, main, city, country, date, day, desc };
