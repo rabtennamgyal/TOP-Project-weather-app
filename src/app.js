@@ -1,6 +1,10 @@
 import './sass/main.scss';
 import { setAllDatas, saveBothTemp } from './modules/Storage';'./modules/Storage';
-import { createCard, clearData, changeToCelsius, changeToFahrenheit, styleCF, injectLoader } from './modules/Paintdom';
+import { 
+    createCard, clearData, changeToCelsius, 
+    changeToFahrenheit, styleCF, injectLoader, 
+    injectBackground, setBackground
+} from './modules/Paintdom';
 
 const input = document.getElementById('input');
 const btn = document.querySelector('.btn');
@@ -42,10 +46,11 @@ const country = localStorage.getItem('country') ? localStorage.getItem('country'
 const date = localStorage.getItem('date') ? localStorage.getItem('date') : '2.19.2022';
 const day = localStorage.getItem('day') ? localStorage.getItem('day') : 'Friday';
 const desc = localStorage.getItem('desc') ? localStorage.getItem('desc') : 'bright and beautiful day';
-
+const img = localStorage.getItem('img') ? localStorage.getItem('img') : "url('../../img/weathers/clearWeather.jpeg')";
+const position = localStorage.getItem('pos') ? localStorage.getItem('pos') : 'cover';
 
 createCard(temp, unit, main, city, country, date, day, desc);
-
+setBackground(img, position);
 
 async function getData(location) {
     const weatherData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=Imperial&appid=804f73fec112865b52ba78935b0ca57b`, {mode: 'cors'});
@@ -82,6 +87,10 @@ async function getData(location) {
     date = mm + '.' + dd + '.' + yyyy;
     setAllDatas(temperature, unit, main, city, country, icon, date, day, desc);
     injectLoader();
+    // May change the code below later !!!
+    setTimeout(() => {
+        injectBackground(main);
+    }, 3000)
 };
 
 function injectData() {

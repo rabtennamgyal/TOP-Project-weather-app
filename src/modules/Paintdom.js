@@ -1,5 +1,5 @@
 import { weatherIcons, cel, fah, main, city, country, date, day, desc } from '../app';
-import { setStyle } from './Storage';
+import { setStyle, setCard } from './Storage';
 
 
 function createCard(temp, unit, main, city, country, date, day, desc) {
@@ -104,4 +104,55 @@ function injectLoader() {
     parent.appendChild(loader);
 }
 
-export { createCard, clearData, changeToCelsius, changeToFahrenheit, styleCF, injectLoader };
+function injectBackground(main) {
+    const card = document.getElementById('card');
+
+    if (main === 'Clear') {
+        card.style.backgroundImage = "url('../../img/weathers/clearWeather.jpeg')";
+        card.style.backgroundSize = "cover";
+        setCard("url('../../img/weathers/clearWeather.jpeg')", "cover");
+    }
+
+    if (main === 'Clouds') {
+        card.style.backgroundImage = "url('../../img/weathers/clouds.jpg')";
+        card.style.backgroundSize = "cover";
+        setCard("url('../../img/weathers/clouds.jpg')", "cover");
+    }
+
+    if (main === 'Snow') {
+        card.style.backgroundImage = "url('../../img/weathers/snowWeather.jpg')";
+        card.style.backgroundSize = "contain";
+        setCard("url('../../img/weathers/snowWeather.jpg')", "contain");
+    }
+
+    if (main === 'Rain' || main === 'Drizzle' || main === 'Thunderstorm') {
+        card.style.backgroundImage = "url('../../img/weathers/rain.jpg')";
+        card.style.backgroundSize = "cover";
+        setCard("url('../../img/weathers/rain.jpg')", "cover");
+    }
+
+    if (main === 'Haze' || main === 'Fog' || main === 'Mist') {
+        card.style.backgroundImage = "url('../../img/weathers/mist.jpg')";
+        card.style.backgroundSize = "cover";
+        setCard("url('../../img/weathers/mist.jpg')", "cover");
+    }
+
+    if (main === 'Dust' || main === 'Smoke') {
+        card.style.backgroundImage = "url('../../img/weathers/dust.jpg')";
+        card.style.backgroundSize = "cover";
+        setCard("url('../../img/weathers/dust.jpg')", "cover");
+    }
+
+}
+
+function setBackground(img, pos) {
+    const card = document.getElementById('card');
+    card.style.backgroundImage = `${img}`;
+    card.style.backgroundSize =  `${pos}`;
+}
+
+export { 
+    createCard, clearData, changeToCelsius, 
+    changeToFahrenheit, styleCF, injectLoader, 
+    injectBackground, setBackground 
+};

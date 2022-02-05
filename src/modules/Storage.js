@@ -20,5 +20,9 @@ function saveBothTemp(cel, fah) {
     localStorage.setItem('fah', fah);
 }
 
+function setCard(img, pos) {
+    localStorage.setItem('img', img);
+    localStorage.setItem('pos', pos);
+}
 
-export { setAllDatas, setStyle, saveBothTemp }
+export { setAllDatas, setStyle, saveBothTemp, setCard }
