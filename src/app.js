@@ -44,7 +44,7 @@ const city = localStorage.getItem('city') ? localStorage.getItem('city') : 'New 
 const country = localStorage.getItem('country') ? localStorage.getItem('country') : 'US';
 const date = localStorage.getItem('date') ? localStorage.getItem('date') : '2.19.2022';
 const day = localStorage.getItem('day') ? localStorage.getItem('day') : 'Friday';
-const desc = localStorage.getItem('desc') ? localStorage.getItem('desc') : 'bright and beautiful day';
+const desc = localStorage.getItem('desc') ? localStorage.getItem('desc') : 'Clear';
 
 createCard(temp, unit, main, city, country, date, day, desc);
 
