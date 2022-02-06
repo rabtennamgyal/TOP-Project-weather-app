@@ -2,7 +2,8 @@ import './sass/main.scss';
 import { setAllDatas, saveBothTemp } from './modules/Storage';'./modules/Storage';
 import { 
     createCard, clearData, changeToCelsius, 
-    changeToFahrenheit, styleCF, injectLoader
+    changeToFahrenheit, styleCF, injectLoader, 
+    setCard
 } from './modules/Paintdom';
 
 const input = document.getElementById('input');
@@ -45,8 +46,10 @@ const country = localStorage.getItem('country') ? localStorage.getItem('country'
 const date = localStorage.getItem('date') ? localStorage.getItem('date') : '2.19.2022';
 const day = localStorage.getItem('day') ? localStorage.getItem('day') : 'Friday';
 const desc = localStorage.getItem('desc') ? localStorage.getItem('desc') : 'Clear';
+const hour = localStorage.getItem('hour') ? localStorage.getItem('hour') : 10;
 
 createCard(temp, unit, main, city, country, date, day, desc);
+setCard(hour);
 
 async function getData(location) {
     const weatherData = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=Imperial&appid=804f73fec112865b52ba78935b0ca57b`, {mode: 'cors'});
@@ -79,6 +82,9 @@ async function getData(location) {
     let dd = String(date.getDate()).padStart(2, '0');
     let mm = String(date.getMonth() + 1).padStart(2, '0');
     let yyyy = date.getFullYear();
+    let hour = date.getHours();
+    localStorage.setItem('hour', hour);
+    setCard(hour);
     
     date = mm + '.' + dd + '.' + yyyy;
     setAllDatas(temperature, unit, main, city, country, icon, date, day, desc);

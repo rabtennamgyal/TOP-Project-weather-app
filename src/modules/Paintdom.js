@@ -1,7 +1,6 @@
 import { weatherIcons, cel, fah, main, city, country, date, day, desc } from '../app';
 import { setStyle } from './Storage';
 
-
 function createCard(temp, unit, main, city, country, date, day, desc) {
     const parent = document.getElementById('card');
     parent.innerHTML = `
@@ -104,8 +103,20 @@ function injectLoader() {
     parent.appendChild(loader);
 }
 
+function setCard(hour) {
+    const card = document.getElementById('card');
+
+    if (hour === 0) {
+        card.style.backgroundImage = "url('../../img/night.jpg')";
+        
+    } else {
+        card.style.backgroundImage = "url('../../img/day.png')"
+    }
+}
+
 
 export { 
     createCard, clearData, changeToCelsius, 
-    changeToFahrenheit, styleCF, injectLoader
+    changeToFahrenheit, styleCF, injectLoader,
+    setCard
 };

@@ -23,17 +23,13 @@ html, body {
 
     @include respond(phone) {
         grid-template-columns: 1fr;
-        grid-template-rows: 20% 80%;
+        // grid-template-rows: 20% 80%;
     }
 
     .ctrl {
         position: relative;
         display: grid;
         grid-template-rows: 5% 95%;
-
-        @include respond(phone) {
-            grid-template-rows: 20% 80%;
-        }
         
         .controls {
             outline: none;
@@ -70,13 +66,17 @@ html, body {
                 align-items: center;
 
                 @include respond(phone) {
-                    top: 20%;
+                    top: 5%;
                 }
 
                 .tempUnit {
                     cursor: pointer;
                     font-size: 3rem;
                     font-family: Dongle, sans-serif;
+
+                    @include respond(phone) {
+                        font-size: 4rem;
+                    }
                 }
                 
                 #c {
@@ -101,17 +101,20 @@ html, body {
             display: grid;
             grid-template-rows: 25% 55%;
             font-family: Dongle, sans-serif;
-            background-size: contain;
-
-            @include respond(phone) {
-                display: flex;
-            }
+            // background-image: url('../../img/day.png');
+            //background-image: url('../../img/night.jpg');
+            background-size: cover;
 
             .cardOne {
                 justify-self: right;
                 width: 95%;
                 display: grid;
                 grid-template-rows: 1fr 2fr 1fr;
+
+
+                @include respond(phone) {
+                    width: 100%;
+                }
 
                 #day {
                     margin-top: .5rem;
@@ -120,30 +123,29 @@ html, body {
                     margin-bottom: -2.3rem;
 
                     @include respond(phone) {
-                        font-size: 3rem;
-                        margin: 0 0 0 3rem;
+                        margin: 0 0 0 2rem;
                     }
                 }
 
                 #date {
-                    color: #dbdbdb;
+                    color: #ffffff;
                     font-size: 2.5rem;
                     margin-bottom: -2rem;
 
                     @include respond(phone) {
-                        font-size: 2rem;
-                        margin: -2rem 0 0 3rem;
+                        font-size: 3rem;
+                        margin: -2rem 0 0 2rem;
                     }
                 }
 
                 #location {
                     margin-top: 2rem;
-                    color: #dbdbdb;
+                    color: #ffffff;
                     font-size: 2.5rem;
 
                     @include respond(phone) {
-                        font-size: 2rem;
-                        margin: 0 0 0 3rem;
+                        font-size: 5rem;
+                        margin: 0 0 0 2rem;
                     }
                 }
             }
@@ -155,7 +157,7 @@ html, body {
                 align-items: flex-end;
 
                 @include respond(phone) {
-                    display: block;
+                    width: 100%;
                 }
 
                 .cardTwoContent {
@@ -166,18 +168,28 @@ html, body {
                     color: #fff;
 
                     @include respond(phone) {
-                        height: 50%;
+                        height: 100%;
                         grid-template-columns: 1fr 1fr;
+                        grid-template-rows: 1fr 1fr;
                     }
 
                     #one {
                         width: 20%;
 
+                        @include respond(phone) {
+                            width: auto;
+                            grid-column: 1 / 3;
+                        }
+
                         #icon {
                             font-size: 5rem;
 
                             @include respond(phone) {
-                                font-size: 4rem;
+                                display: grid;
+                                place-items: center;
+                                font-size: 12rem;
+                                height: 100%;
+                                width: 100%;
                             }
                         }
                     }
@@ -195,21 +207,26 @@ html, body {
                             font-size: 7rem;
 
                             @include respond(phone) {
-                                font-size: 4rem;
+                                display: grid;
+                                place-items: center;
+                                font-size: 10rem;
+                                height: 100%;
+                                width: 100%;
                             }
                         }
                     }
 
                     #three {
-                        @include respond(phone) {
-                            display: none;
-                        }
 
                         #main {
                             font-size: 3rem;
 
                             @include respond(phone) {
-                                font-size: 2rem;
+                                height: 100%;
+                                width: 100%;
+                                font-size: 8rem;
+                                display: grid;
+                                place-items: center;
                             }
                         }
                     }
@@ -223,14 +240,23 @@ html, body {
                 align-items: center;
 
                 @include respond(phone) {
-                    justify-content: center;
-                    align-items: flex-end;
+                    width: 100%;
+                    display: block;
                 }
 
                 #desc {
                     font-size: 4rem;
                     font-family: Dongle, cursive, sans-serif;
                     color: #fff;
+                    height: 100%;
+                    width: 100%;
+
+                    @include respond(phone) {
+                        display: grid;
+                        place-items: center;
+                        margin: 0 auto;
+                        font-size: 5rem;
+                    }
                 }
             }
 
@@ -258,5 +284,9 @@ html, body {
         opacity: 0.8;
         height: 100vh;
         width: 100%;
+
+        @include respond(phone) {
+            display: none;
+        }
     }
 }
