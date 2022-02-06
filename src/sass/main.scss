@@ -1,4 +1,6 @@
 // 🔮
+@import './mixin.scss';
+
 
 *,
 *::before,
@@ -19,10 +21,19 @@ html, body {
     grid-template-columns: 35% 65%;
     height: 100vh;
 
+    @include respond(phone) {
+        grid-template-columns: 1fr;
+        grid-template-rows: 30% 70%;
+    }
+
     .ctrl {
         position: relative;
         display: grid;
         grid-template-rows: 5% 95%;
+
+        @include respond(phone) {
+            grid-template-rows: 20% 80%;
+        }
         
         .controls {
             outline: none;
@@ -58,6 +69,10 @@ html, body {
                 justify-content: center;
                 align-items: center;
 
+                @include respond(phone) {
+                    top: 20%;
+                }
+
                 .tempUnit {
                     cursor: pointer;
                     font-size: 3rem;
@@ -89,6 +104,10 @@ html, body {
             font-family: Dongle, sans-serif;
             background-size: contain;
 
+            @include respond(phone) {
+                display: flex;
+            }
+
             .cardOne {
                 justify-self: right;
                 width: 95%;
@@ -100,18 +119,33 @@ html, body {
                     color: #fff;
                     font-size: 5rem;
                     margin-bottom: -2.3rem;
+
+                    @include respond(phone) {
+                        font-size: 3rem;
+                        margin: 0;
+                    }
                 }
 
                 #date {
                     color: #dbdbdb;
                     font-size: 2.5rem;
                     margin-bottom: -2rem;
+
+                    @include respond(phone) {
+                        font-size: 2rem;
+                        margin: 0;
+                    }
                 }
 
                 #location {
                     margin-top: 2rem;
                     color: #dbdbdb;
                     font-size: 2.5rem;
+
+                    @include respond(phone) {
+                        font-size: 2rem;
+                        margin: 0;
+                    }
                 }
             }
 
@@ -144,6 +178,11 @@ html, body {
                             height: 100%;
                             width: 35%;
                             font-size: 7rem;
+
+                            @include respond(phone) {
+                                font-size: 5rem;
+                                margin: 0;
+                            }
                         }
                     }
 
@@ -170,7 +209,6 @@ html, body {
             }
 
             .loader {
-                border: solid red;
                 height: 50px;
                 width: 50px;
                 position: absolute;
