@@ -175,6 +175,10 @@ html, body {
 
                         #icon {
                             font-size: 5rem;
+
+                            @include respond(phone) {
+                                font-size: 4rem;
+                            }
                         }
                     }
 
@@ -191,7 +195,7 @@ html, body {
                             font-size: 7rem;
 
                             @include respond(phone) {
-                                font-size: 5rem;
+                                font-size: 4rem;
                             }
                         }
                     }
