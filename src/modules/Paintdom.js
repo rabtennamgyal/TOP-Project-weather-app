@@ -106,11 +106,12 @@ function injectLoader() {
 function setCard(hour) {
     const card = document.getElementById('card');
 
-    if (hour === 0) {
-        card.style.backgroundImage = "url('../../img/night.jpg')";
-        
+    if (hour >= 6 && hour <= 19) {
+        card.style.backgroundImage = "url('../../img/day.png')";
+        console.log('first');
     } else {
-        card.style.backgroundImage = "url('../../img/day.png')"
+        card.style.backgroundImage = "url('../../img/night.jpg')";
+        console.log('second');
     }
 }
 
