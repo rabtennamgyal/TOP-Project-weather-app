@@ -89,6 +89,7 @@ async function getData(location) {
     date = mm + '.' + dd + '.' + yyyy;
     setAllDatas(temperature, unit, main, city, country, icon, date, day, desc);
     injectLoader();
+    console.log(hour);
 };
 
 function injectData() {
