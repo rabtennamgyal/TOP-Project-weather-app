@@ -125,7 +125,7 @@ function injectData() {
     `
 }
 
-styleCF(cel, fah)
+styleCF(cel, fah);
 
 btn.addEventListener('click', () => {
     getData(input.value);
@@ -134,6 +134,17 @@ btn.addEventListener('click', () => {
         injectData();
     }, 3000)
     input.value = '';
+});
+
+btn.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        getData(input.value);
+        clearData();
+        setTimeout(() => {
+            injectData();
+        }, 3000)
+        input.value = '';
+    }
 });
 
 cel.addEventListener('click', () => {
