@@ -136,7 +136,7 @@ btn.addEventListener('click', () => {
     input.value = '';
 });
 
-btn.addEventListener('keypress', (e) => {
+btn.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         getData(input.value);
         clearData();
